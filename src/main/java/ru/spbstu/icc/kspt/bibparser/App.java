@@ -25,12 +25,13 @@ public class App
     		for(Key key : entries.keySet()){
     			BibTeXEntry entry = entries.get(key);
     			Map<Key, Value> fields  = entry.getFields();
-    			System.out.println("------------------------------\n  Key     |           Value       ");
+    			System.out.println(key.toString()+"\n  Key     |           Value       ");
     			for(Key fieldKey : fields.keySet()){
     				Value value = fields.get(fieldKey);
     				System.out.println(String.format("%10.10s|%20.20s", fieldKey,value.toUserString()));
     			}
     		}
+    		reader.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
