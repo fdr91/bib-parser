@@ -1,35 +1,11 @@
 package ru.spbstu.icc.kspt.bibparser;
 
 import org.slf4j.*;
-import org.jbibtex.Key;
-
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JFileChooser;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-
-import org.jbibtex.ParseException;
-
 import ru.spbstu.icc.kspt.bibparser.gui.BibSelectionFrame;
 import ru.spbstu.icc.kspt.bibparser.gui.StyleSelectionFrame;
 import ru.spbstu.icc.kspt.bibparser.helpers.Properties;

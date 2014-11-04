@@ -12,12 +12,10 @@ public class MultyWindowFrame  extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 2L;
-	@SuppressWarnings("unused")
 	JButton nextFrameButton;
-	@SuppressWarnings("unused")
 	JButton previousFrameButton;
-	private static JMenuBar mainMenu;
-	private static JMenu mnFile;
+	private JMenuBar mainMenu;
+	private JMenu mnFile;
 
 	
 	MultyWindowFrame(JButton prev, JButton next){
@@ -31,19 +29,17 @@ public class MultyWindowFrame  extends JFrame {
 		setTitle("Green Team project");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 526, 405);
-		if(mainMenu==null) {
-			mainMenu = new JMenuBar();
-			
-	
-			mnFile = new JMenu("File");
-			mainMenu.add(mnFile);
-	
-			JMenuItem mntmNewMenuItem = new JMenuItem("Open");
-			mnFile.add(mntmNewMenuItem);
-	
-			JMenuItem mntmNewMenuItem_1 = new JMenuItem("Exit");
-			mnFile.add(mntmNewMenuItem_1);
-		}
+		mainMenu = new JMenuBar();
+		
+
+		mnFile = new JMenu("File");
+		mainMenu.add(mnFile);
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Open");
+		mnFile.add(mntmNewMenuItem);
+
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Exit");
+		mnFile.add(mntmNewMenuItem_1);
 		setJMenuBar(mainMenu);
 	}
 	
