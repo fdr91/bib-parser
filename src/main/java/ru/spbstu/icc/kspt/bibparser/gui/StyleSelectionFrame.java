@@ -67,14 +67,14 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 
 		btnOpenAStylefile = new JButton("Open a style file");
 		btnOpenAStylefile.setIcon(new ImageIcon(StyleSelectionFrame.class
-				.getResource("/ru/spbstu/icc/kspt/bibparser/gui/Open16.gif")));
+				.getResource("/Open16.gif")));
 		btnOpenAStylefile.setBounds(347, 10, 148, 23);
 		btnOpenAStylefile.addActionListener(this);
 		styleSelectionPane.add(btnOpenAStylefile);
 		
 		nextFrameButton.setText("Save to file");
 		btnOpenAStylefile.setIcon(new ImageIcon(StyleSelectionFrame.class
-				.getResource("/ru/spbstu/icc/kspt/bibparser/gui/Save16.gif")));
+				.getResource("/Save16.gif")));
 		nextFrameButton.setBounds(406, 310, 89, 23);
 		nextFrameButton.addActionListener(this);
 		nextFrameButton.setEnabled(false);
@@ -149,5 +149,4 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 		}
 		return retval;
 	}
-
 }

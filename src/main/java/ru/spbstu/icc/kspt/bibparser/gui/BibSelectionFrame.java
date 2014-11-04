@@ -70,7 +70,7 @@ public class BibSelectionFrame extends MultyWindowFrame implements ActionListene
 
 		btnOpenABibfile = new JButton("Open a bib. file");
 		btnOpenABibfile.setIcon(new ImageIcon(BibSelectionFrame.class
-				.getResource("/ru/spbstu/icc/kspt/bibparser/gui/Open16.gif")));
+				.getResource("/Open16.gif")));
 		btnOpenABibfile.setBounds(347, 10, 148, 23);
 		btnOpenABibfile.addActionListener(this);
 		bibSelectionPane.add(btnOpenABibfile);
