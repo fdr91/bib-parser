@@ -84,7 +84,7 @@ public class BibSelectionFrame extends MultyWindowFrame implements ActionListene
 		mainNextBtn.setEnabled(false);
 		bibSelectionPane.add(mainNextBtn);
 	
-		 fc = new JFileChooser();
+		fc = new JFileChooser();
 	}
 	
 	public final ArrayList<Key> getTableEntries(){

@@ -27,17 +27,24 @@ import ru.spbstu.icc.kspt.bibparser.style.Styler;
 public class StyleSelectionFrame extends MultyWindowFrame implements ActionListener {
 	
 	/**
+	 * Style selection frame is the 3rd and currently final stage of the program.
+	 * Functions currently implemented: read a style file and style the selected books.
+	 * 
+	 * TODO Add styling process state symbolics / progress bar
+	 * TODO make the process more usable: add STYLE button, instead of styling on file choice
+	 * TODO Add recent style paths and files
+	 * TODO Export to txt, html, (LaTEX?)
 	 * 
 	 */
 	private final Logger logger=LoggerFactory.getLogger(StyleSelectionFrame.class);
 	
 	private static final long serialVersionUID = 4L;
 	private JPanel styleSelectionPane;
-	private JTextField styleFileSelected;
-	private JButton btnOpenAStylefile;
-	private JFileChooser fc;
-	private File styleFile;
-	private String style;
+	private JTextField styleFileSelected; // shows path to the currently selected style file
+	private JButton btnOpenAStylefile; 
+	private JFileChooser fc; 
+	private File styleFile; 
+	private String style; 
 	private Properties properties;
 	private JTextPane  textPane;
 	private String styled;
@@ -57,7 +64,7 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 		styleSelectionPane.setLayout(null);
 
 		styleFileSelected = new JTextField();
-		styleFileSelected.setEditable(false);
+		styleFileSelected.setEditable(true);
 		styleFileSelected.setHorizontalAlignment(SwingConstants.LEFT);
 		styleFileSelected.setText("Open a style...");
 		styleFileSelected.setBounds(10, 11, 327, 20);
@@ -85,7 +92,7 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 		styleSelectionPane.add(previousFrameButton);
 	
 		textPane = new JTextPane();
-		textPane.setBounds(10, 42, 485, 257);
+		textPane.setBounds(10, 42, 600, 400);
 		textPane.setContentType("text/html");
 		styleSelectionPane.add(textPane);
 		
@@ -99,6 +106,7 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+		// 
 		if (source == btnOpenAStylefile) {
 			logger.debug("btnOpenAStylefile event");
 			int returnVal = fc.showOpenDialog(StyleSelectionFrame.this);
@@ -117,7 +125,8 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 				}
 				textPane.setText(styled);
 			}
-		} if (source == nextFrameButton) {
+		} 
+		if (source == nextFrameButton) {
 			logger.debug("nextFrameButton event");
 			int returnVal = fc.showSaveDialog(StyleSelectionFrame.this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {

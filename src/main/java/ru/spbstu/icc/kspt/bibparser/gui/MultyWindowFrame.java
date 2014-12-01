@@ -6,7 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class MultyWindowFrame  extends JFrame {
+public class MultyWindowFrame extends JFrame {
 	
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class MultyWindowFrame  extends JFrame {
 
 	
 	MultyWindowFrame(JButton prev, JButton next){
-		nextFrameButton=next;
+		nextFrameButton = next;
 		previousFrameButton = prev;
 		initial();		
 	}
@@ -28,7 +28,7 @@ public class MultyWindowFrame  extends JFrame {
 		
 		setTitle("Green Team project");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 526, 405);
+		setBounds(100, 100, 800, 600);
 		mainMenu = new JMenuBar();
 		
 
