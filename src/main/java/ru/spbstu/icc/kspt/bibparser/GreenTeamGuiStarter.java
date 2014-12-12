@@ -32,19 +32,23 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					GreenTeamGuiStarter gui = new GreenTeamGuiStarter();
-					gui.styleSelectionFrame.setVisible(false);
-					gui.bibSelectionFrame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
+		if(args.length==1 && args[0].equals("gui")) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						
+						GreenTeamGuiStarter gui = new GreenTeamGuiStarter();
+						gui.styleSelectionFrame.setVisible(false);
+						gui.bibSelectionFrame.setVisible(true);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
+			});
+		} else {
+			ru.spbstu.icc.kspt.bibparser.cli.CliStarter.main(args);
+		}
 	}
 	
 	/**

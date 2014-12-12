@@ -192,9 +192,9 @@ public class CliMainClass {
 				break;
 			case TAGS: printIds(); stage=Stage.MAIN; break;
 			case GREP: 
-				System.out.print("Введите поле для осуществления фильтрации:\n");
+				System.out.print("\tВведите поле для осуществления фильтрации:\n");
 				String[] arr = printFormatedFields();
-				System.out.print("0. Назад\n");
+				System.out.print("\t\t0. Назад\n");
 				int u=-1;
 				String str=null;
 				while(u==-1 || u>arr.length){
@@ -251,7 +251,7 @@ public class CliMainClass {
 			arr[i] = (String)sOb[i];
 		k=0;
 		for(String s : arr){
-			System.out.println(String.format("%3d. %s", ++k,s));
+			System.out.println(String.format("\t\t%3d. %s", ++k,s));
 		}
 		return arr;
 	}
