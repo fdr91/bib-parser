@@ -26,8 +26,6 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 	
 	private final Logger logger=LoggerFactory.getLogger(GreenTeamGuiStarter.class);
 
-	
-	
 	/**
 	 * Launch the application.
 	 */

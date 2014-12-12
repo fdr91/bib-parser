@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -41,10 +42,13 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 	private static final long serialVersionUID = 4L;
 	private JPanel styleSelectionPane;
 	private JTextField styleFileSelected; // shows path to the currently selected style file
-	private JButton btnOpenAStylefile; 
+	private JButton btnOpenAStylefile;
+	private String[] output_format_list = {"html", "text", "rtf", "foo", "asciidoc"};
+	private JComboBox outputFormatList;
 	private JFileChooser fc; 
 	private File styleFile; 
 	private String style; 
+	private String chosen_output_format = "html";
 	private Properties properties;
 	private JTextPane  textPane;
 	private String styled;
@@ -96,7 +100,13 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 		textPane.setContentType("text/html");
 		styleSelectionPane.add(textPane);
 		
-		 fc = new JFileChooser();
+		fc = new JFileChooser();
+		 
+		outputFormatList = new JComboBox(output_format_list);
+		outputFormatList.setBounds(20, 50, 800, 700);
+		outputFormatList.setSelectedIndex(0);
+		outputFormatList.addActionListener(listener);
+		styleSelectionPane.add(outputFormatList);
 	}
 	
 	public File getStyleFile(){
@@ -116,8 +126,9 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 				//properties.setStyle(styleFile);
 				nextFrameButton.setEnabled(true);
 				style=readStyleFromString(styleFile);
+				//chosen_output_format = "text";
 				try {
-					styled=Styler.process(properties.getBib(), style, properties.getSelected());
+					styled=Styler.process(properties.getBib(), style, chosen_output_format, properties.getSelected());
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					styled = "Cant process the data";
@@ -142,6 +153,13 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 					e1.printStackTrace();
 				}
 			}
+		}
+		
+		if (source == outputFormatList) {
+			logger.debug("outputFormatList event");
+			JComboBox box = (JComboBox) e.getSource();
+			String box_text = (String) box.getSelectedItem();
+			chosen_output_format = box_text;
 		}
 	}
 	
