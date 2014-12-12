@@ -48,9 +48,10 @@ public class CliMainClass {
 
 	void printHlp(){
 		System.out.println("Вы пользуетесь бета-версией CLI-интерфейса приложения для создания списков литературы для научных публикаций\n"
-				+ "\tapp.jar -bib <path to .bib> [-op to_html|show_ids|grep|print] [-st <path to .xml style> [-m  interactive|command] [-r] [-f <field name> -ids <id1, id2...>] [-h]\n"
+				+ "\tapp.jar [-bib <path to .bib>] [gui] [-op to_html|show_ids|grep|print] [-st <path to .xml style> [-m  interactive|command] [-r] [-f <field name> -ids <id1, id2...>] [-h]\n"
 				+ "Параметры:\n"
-				+ "\t\t-bib — путь к bib-файлу. Обязательный параметр\n"
+				+ "\t\t-gui — запустить GUI\n"
+				+ "\t\t-bib — путь к bib-файлу.\n"
 				+ "\t\t-op — операция: \n"
 				+ "\t\t\tto_html — сформировать список. Должны быть так же указаны -bib, -out, -st, -ids\n"
 				+ "\t\t\tshow_ids — показать все существующие id в bib\n"

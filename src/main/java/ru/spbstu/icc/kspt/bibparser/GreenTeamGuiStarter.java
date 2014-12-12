@@ -32,7 +32,7 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		if(args.length==1 && args[0].equals("gui")) {
+		if(args.length==1 && args[0].toLowerCase().equals("-gui")) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -46,7 +46,12 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 					}
 				}
 			});
-		} else {
+		} else if(args.length==0){
+			String args1[]=new String[1];
+			args1[0]="-h";
+			ru.spbstu.icc.kspt.bibparser.cli.CliStarter.main(args1);
+		}
+		else {
 			ru.spbstu.icc.kspt.bibparser.cli.CliStarter.main(args);
 		}
 	}
