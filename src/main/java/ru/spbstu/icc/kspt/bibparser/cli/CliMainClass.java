@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 import ru.spbstu.icc.kspt.bibparser.style.Styler;
 
 enum Option {
-	M, BIB, ST, OP, IDS, P, OUT, R, F
+	M, BIB, ST, OP, IDS, P, OUT, R, F, H
 }
 
 enum ModeOptions {
@@ -45,6 +45,37 @@ enum Stage {
 , SELECT_TAGS_1, SELECT_STYLE}
 
 public class CliMainClass {
+
+	void printHlp(){
+		System.out.println("Вы пользуетесь бета-версией CLI-интерфейса приложения для создания списков литературы для научных публикаций\n"
+				+ "\tapp.jar -bib <path to .bib> [-op to_html|show_ids|grep|print] [-st <path to .xml style> [-m  interactive|command] [-r] [-f <field name> -ids <id1, id2...>] [-h]\n"
+				+ "Параметры:\n"
+				+ "\t\t-bib — путь к bib-файлу. Обязательный параметр\n"
+				+ "\t\t-op — операция: \n"
+				+ "\t\t\tto_html — сформировать список. Должны быть так же указаны -bib, -out, -st, -ids\n"
+				+ "\t\t\tshow_ids — показать все существующие id в bib\n"
+				+ "\t\t\tgrep — вывести записи для клоторых поле, указанное в параметре -f соответствует регулярному выражению, указаному в -p. Если -f не указан, то фильтрация выполняется по id\n"
+				+ "\t\t\tprint — вывод всех записей из bib в консоль\n"
+				+ "\t\t-st — путь к xml-файлу стиля\n"
+				+ "\t\t-m — интерактивный или обычный (по умолчанию) режим работы: interactive | command\n"
+				+ "\t\t-out — путь к выходному файлу. Применяется только для операции to_html\n"
+				+ "\t\t-r — перезаписать указанный в -out файл, если он уже существует\n"
+				+ "\t\t-f — поле для -op grep\n"
+				+ "\t\t-ids — идентификаторы для операции to_html\n"
+				+ "\t\t-h — показать это сообщение\n\n"
+				+ "Примеры:\n"
+				+ "\tapp -bib database.bib -out output.html -s style.xml -ids id1,id2\n\t\tСформировать список в формате HTML. "
+				+ "Взять теги id1,id2 из файла database.bib и отформатировать в соответствии с style.xml. "
+				+ "Результат записать в out.html\n\n"
+				+ "\tapp -op print -bib database.bib\n"
+				+ "\t\tВывести на экран все записи из database.bib\n\n"
+				+ "\tapp -op grep -bib database.bib -p rfc.*\n"
+				+ "\t\tВывести на экран записи из database.bib, теги которых подходят под патерн \"rfc.*\"\n\n"
+				+ "\tapp -op grep -f author -p .*Lenin.* -bib database.bib\n"
+				+ "\t\tВывести на экран записи из database.bib, поле author которых подходит под патерн \".*Lenin.*\"\n\n"
+				+ "\tapp -op show_ids -bib database.bib\n"
+				+ "\t\tВывести все id из database.bib\n");
+	}
 
 	private final static Logger logger = LoggerFactory
 			.getLogger(CliMainClass.class);
@@ -166,7 +197,7 @@ public class CliMainClass {
 				System.out.print("0. Назад\n");
 				int u=-1;
 				String str=null;
-				while(u==-1 && u>=arr.length){
+				while(u==-1 || u>arr.length){
 					System.out.print("Введите номер>");
 					if((str=br.readLine()).matches("\\d+"))
 						u=Integer.parseInt(str);
@@ -174,7 +205,7 @@ public class CliMainClass {
 				if(u==0) {
 					stage=Stage.MAIN;
 				} else {
-					this.field = arr[u];
+					this.field = arr[u-1];
 					stage=Stage.PATTERN;
 				}
 				break;
@@ -214,10 +245,13 @@ public class CliMainClass {
 			if(k==0)
 				break;
 		}
-		String[] arr = (String[])set.toArray();
+		String[] arr = new String[set.size()];//(String[])set.toArray();
+		Object[] sOb = set.toArray();
+		for(int i =0; i< set.size(); i++)
+			arr[i] = (String)sOb[i];
 		k=0;
 		for(String s : arr){
-			System.out.println(String.format("%3d. %s", k++,s));
+			System.out.println(String.format("%3d. %s", ++k,s));
 		}
 		return arr;
 	}
@@ -234,6 +268,7 @@ public class CliMainClass {
 	String field;// = "!tag";
 	String patternushka;// = null;
 	Stage stage;
+	private boolean showHelp;
 
 	CliMainClass() {
 		bibushka = null; // Bib-file
@@ -243,17 +278,21 @@ public class CliMainClass {
 		operation = null;// = Operation.TO_HTML;
 		field = null;
 		patternushka = null;
+		showHelp = false;
 	}
 
 	public void run(String[] args) {
 		logger.debug("Start");
 		try {
 			parseArgs(args);
-
-			if (interactive_mode)
-				runInteractive();
-			else
-				runCommand();
+			if(showHelp){
+				printHlp();
+			} else {
+				if (interactive_mode)
+					runInteractive();
+				else
+					runCommand();
+			}
 
 		} catch (java.lang.IllegalArgumentException e) {
 			System.err.println(e.getMessage());
@@ -276,11 +315,14 @@ public class CliMainClass {
 				String arg = arg1.toUpperCase().substring(1);
 				curr = Option.valueOf(arg);
 				switch (curr) {
+				case H:
+					this.showHelp = true;
+					break;
 				case M:
 					logger.debug(String.format("\"%s %s\" passed", args[i],
 							args[i + 1]));
 					i++;
-					ModeOptions mo = ModeOptions.valueOf(args[i]);
+					ModeOptions mo = ModeOptions.valueOf(args[i].toUpperCase());
 					switch (mo) {
 					case COMMAND:
 						interactive_mode = false;
