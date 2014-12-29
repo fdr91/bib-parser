@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    <list>
+
+        <other_var>
+            <name>produghct</name>
+            <value>test</value>   
+        </other_var>
+        <other_var>
+            <name>specififghation_name</name>
+            <value>test</value>   
+        </other_var>
+        <other_var>
+            <name>specificfghation</name>
+            <value>test</value>   
+        </other_var>
+        <other_var>
+            <name>specification_staghrt_date</name>
+            <value>test</value>   
+        </other_var>
+        <other_var>
+            <name>specification_versigfon</name>
+            <value>test</value>   
+        </other_var>
+  
+
+        
+        <item>
+            <name>имя продукта</name>
+            <order>3</order>
+            <select>SELECT `id`  FROM `product` WHERE name = '{product}'</select>
+            <insert_begin>INSERT INTO `product`(`name`, `description`, `deletion`) VALUES </insert_begin>
+            <insert_end>('{product}','{product}','0')</insert_end>
+            <description>информация о продукте</description>
+            <var_name>product</var_name>
+            <key>product</key>
+            <isRepitable>false</isRepitable>
+            <isDependent>false</isDependent>
+            <noInsert>false</noInsert>
+            <isOrdered>false</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>true</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>Спецификация</name>
+            <order>4</order>
+            <select>SELECT `id` FROM `specification` WHERE name = '{specification}' and id_product = &product&</select>
+            <insert_begin>INSERT INTO `specification`( `name`, `description`, `start_date`, `version`, `deletion`, `id_product`) VALUES</insert_begin>
+            <insert_end>('{specification}','{specification}','{specification_start_date}','{specification_version}','0',&product&)</insert_end>
+            <description>Добавление спецификации</description>
+            <var_name>specification</var_name>
+            <var_name>specification_start_date</var_name>
+            <var_name>specification_version</var_name>
+            <key>specification</key>
+            <isRepitable>false</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>true</isDependent>
+            <dependence>product</dependence>
+            <isOrdered>false</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>true</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>единицы измерения</name>
+            <order>1</order>
+            <select>select id from units where name = '{unit}'</select>
+            <insert_begin>INSERT INTO `units`( `name`) VALUES</insert_begin>
+            <insert_end>('{unit}')</insert_end>
+            <description>добавление поля "тип результата"</description>
+            <var_name>unit</var_name>
+            <key>unit</key>
+            <isRepitable>true</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>false</isDependent>
+            <isOrdered>false</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>параметры</name>
+            <order>2</order>
+            <select>SELECT id FROM `parametr` WHERE name = '{parametr}'  and id_units = &unit&</select>
+            <insert_begin>INSERT INTO `parametr`( `name`, `id_units`, `id_result_type`) VALUES  </insert_begin>
+            <insert_end>('{parametr}'  , &unit& , &result_type&)</insert_end>
+            <description>Добавление параметров</description>
+            <key>parametr</key>
+            <var_name>parametr</var_name>
+            <isRepitable>true</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>true</isDependent>
+            <dependence>unit</dependence>
+            <dependence>result_type</dependence>
+            <isOrdered>false</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>Стадии</name>
+            <order>5</order>
+            <select>SELECT `id`  FROM `stage` WHERE name = '{stage}' and id_specification = &specification&</select>
+            <insert_begin>INSERT INTO `stage`(`name`, `description`, `SEQUENCENUMBER`, `id_specification`)VALUES </insert_begin>
+            <insert_end>('{stage}','{stage}','{stage_order}',&specification&)</insert_end>
+            <description>добавляем стадию</description>
+            <var_name>stage</var_name>
+            <var_ordered>stage_order</var_ordered>
+            <key>stage</key>
+            <isRepitable>false</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>true</isDependent>
+            <dependence>specification</dependence>
+            <isOrdered>true</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>Целевое действие</name>
+            <order>6</order>
+            <select>SELECT  `id` FROM `target` WHERE id_stage = &stage& and id_specification = &specification& and name = '{target}'</select>
+            <insert_begin>INSERT INTO `target`(`id_stage`, `id_specification`, `SEQUENCENUMBER`, `name`, `description`)VALUES</insert_begin>
+            <insert_end>(&stage&,&specification&,'{target_order}','{target}','{target}')</insert_end>
+            <description>descr</description>
+            <var_name>target</var_name>
+            <var_ordered>target_order</var_ordered>
+            <key>target</key>
+            <isRepitable>false</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>true</isDependent>
+            <dependence>specification</dependence>
+            <dependence>stage</dependence>
+            <isOrdered>true</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>Тип результата</name>
+            <order>10</order>
+            <select>SELECT id FROM `result_type` WHERE description = "{result_type}" limit 1</select>
+            <var_name>result_type</var_name>
+            <key>result_type</key>
+            <isRepitable>false</isRepitable>
+            <noInsert>true</noInsert>
+            <isDependent>false</isDependent>
+            <isOrdered>false</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>Компонент</name>
+            <order>7</order>
+            <select>SELECT `id` FROM `component` WHERE name = '{component}'</select>
+            <insert_begin>INSERT INTO `component`( `name`) VALUES </insert_begin>
+            <insert_end>('{component}')</insert_end>
+            <description>descr</description>
+            <var_name>component</var_name>
+            <key>component</key>
+            <isRepitable>false</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>false</isDependent>
+            <isOrdered>false</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>Результат</name>
+            <order>8</order>
+            <select>SELECT  `id`  FROM `result` WHERE id_target = &target& and id_specification = &specification&</select>
+            <insert_begin>INSERT INTO `result`(`id_target`, `id_specification`, `id_component`, `id_parametr`, `description`, `max`, `min`, `replication`, `SEQUENCENUMBER`, `accuracy`) VALUES</insert_begin>
+            <insert_end>( &target& ,&specification&,&component&,&parametr&,'{result}',&result_max&,&result_min&,&result_replication&,'{result_order}',&result_accuracy&)</insert_end>
+            <description>descr</description>
+            <var_name>result</var_name>
+            <var_ordered>result_order</var_ordered>                               
+            <key>result</key>
+            <isRepitable>false</isRepitable>
+            <noInsert>false</noInsert>
+            <isDependent>true</isDependent>
+            <dependence>target</dependence>
+            <dependence>specification</dependence>
+            <dependence>component</dependence>
+            <dependence>result_max</dependence>
+            <dependence>result_min</dependence>
+            <dependence>result_replication</dependence>
+            <dependence>result_accuracy</dependence>
+               <dependence>parametr</dependence>
+            <isOrdered>true</isOrdered>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+            <noSelect>false</noSelect>
+        </item>
+        <item>
+            <name>описание стадии</name>
+            <order>10</order>
+            <noInsert>true</noInsert>
+            <noSelect>true</noSelect>
+            <key>stage_desc</key>
+            <isNull>false</isNull>
+            <isMeta>false</isMeta>
+        </item>
+        <item>
+            <name>минимум</name>
+            <order>10</order>
+            <noInsert>true</noInsert>
+            <noSelect>true</noSelect>
+            <key>result_min</key>
+            <isNull>true</isNull>
+            <isMeta>false</isMeta>
+        </item>
+        <item>
+            <name>максимум</name>
+            <order>10</order>
+            <noInsert>true</noInsert>
+            <noSelect>true</noSelect>
+            <key>result_max</key>
+            <isNull>true</isNull>
+            <isMeta>false</isMeta>
+        </item>
+        <item>
+            <name>кол-во знаков после запятой</name>
+            <order>10</order>
+            <noInsert>true</noInsert>
+            <noSelect>true</noSelect>
+            <key>result_accuracy</key>
+            <isNull>true</isNull>
+            <isMeta>false</isMeta>
+        </item>
+        <item>
+            <name>репликации</name>
+            <order>10</order>
+            <noInsert>true</noInsert>
+            <noSelect>true</noSelect>
+            <key>result_replication</key>
+            <isNull>true</isNull>
+            <isMeta>false</isMeta>
+        </item>
+        
+    </list>
+      
+</root>

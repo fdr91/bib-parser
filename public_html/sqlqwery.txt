@@ -1,0 +1,12 @@
+INSERT INTO `result`(`id_target`, `id_specification`, `id_component`, `id_parametr`, `description`, `max`, `min`, `replication`, `SEQUENCENUMBER`, `accuracy`) VALUES
+( (SELECT  `id` FROM `target` WHERE id_stage = 
+	(SELECT `id`  FROM `stage` WHERE name = '1. СЫРЬЕ НА СЕРИЮ / RAW MATERIALS' and id_specification = 
+		(SELECT `id` FROM `specification` WHERE name = 'тест_спецификация' and id_product = 
+			(SELECT `id`  FROM `product` WHERE name = 'тестовый продукт'))) and id_specification = 
+	(SELECT `id` FROM `specification` WHERE name = 'тест_спецификация' and id_product =
+		(SELECT `id`  FROM `product` WHERE name = 'тестовый продукт'))) ,
+(SELECT `id` FROM `specification` WHERE name = 'тест_спецификация' and id_product = 
+	(SELECT `id`  FROM `product` WHERE name = 'тестовый продукт')),
+(SELECT `id` FROM `component` WHERE name = 'Субстанция «Оксалиплатин»/ Substance «Oxaliplatin»'),
+(SELECT id FROM `parametr` WHERE name = '№'  and id_units = (select id from units where name = '№')),
+'ОКК (№ аналит. листа) / QC (Analytical report No.)',('NULL'),('NULL'),('1'),'0',('NULL'));

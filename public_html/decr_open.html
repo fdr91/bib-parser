@@ -1,0 +1,149 @@
+<form>
+    <div class="row">
+        <br /><br /><br /><br /><br />
+        <div class="row">
+            <div class="large-6 large-centered columns">
+                <div class="row collapse">
+                    <div class="small-10 columns">
+                        <input type="text" placeholder="Path" ng-model = "udata.path" id="id_path">
+                    </div>
+
+                    <div class="small-2 columns">
+                        <a href="#" class="button postfix" onclick="document.getElementById('upload').click()">open</a>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="small-12 large-centered columns columns">
+            <style>
+                #dropZone {
+                    height: 200px;
+
+
+                }
+            </style>
+            <script type="text/javascript">
+                // Проверяем поддерживает ли браузер drag and drop
+                if ('ondrop' in document.createElement('div')) {
+                    onload = function () {
+                        var dropZone = document.getElementById('dropZone');
+
+                        /*
+                         * Обработчик, срабатывающий, когда курсор с
+                         * перетаскиваем объектом оказывается над dropZone
+                         */
+
+                        dropZone.addEventListener('dragover', function (e) {
+                            // Останавливаем всплытие события
+                            e.stopPropagation();
+                            // останавливаем действие по умолчанию, связанное с эти событием.
+                            e.preventDefault();
+                            e.dataTransfer.dropEffect = 'copy';
+                        }, false);
+
+                        /*
+                         * Обработчик, срабатывающий, когда мы
+                         * бросаем перетаскиваемые файлы в dropZone
+                         */
+
+                        dropZone.addEventListener('drop', function (e) {
+
+                            e.stopPropagation();
+                            e.preventDefault();
+
+                            var files = e.dataTransfer.files, info = '', file;
+
+                            for (var i = 0; file = files[i]; i++) {
+                                info += [file.name, '(', file.type, ')', '-', file.size, 'байт'].join(' ') + '\n';
+                            }
+                            file = files[0];
+
+                            var reader = new FileReader();
+                            reader.onload = function (event) {
+                                var scope = angular.element(document.getElementById('mainDiv')).scope();
+
+                                contents = event.target.result;
+                                
+                              //  console.log("Содержимое файла: " + contents);
+                            };
+
+                            reader.onerror = function (event) {
+                                console.error("Файл не может быть прочитан! код " + event.target.error.code);
+                            };
+
+                            reader.readAsText(file);
+
+
+                            document.getElementById('id_path').value = file.name;
+                            // alert(info);
+
+
+                        }, false);
+
+
+
+
+                    }
+                    // очень печально если браузер не поддерживает drag and drop
+                } else {
+                    alert("К великой печали ваш браузер не поддерживает Drag&Drop(");
+                }
+            </script>
+
+
+            <div class="small-6 large-centered columns columns" >
+                  
+                
+            <div ng-show="dropSupported"  ng-file-drop="onFileSelect($files)" ng-file-drop-available="dropSupported=true" ng-file-drag-over-class="dragOverClass($event)" ng-file-drag-over-delay="100" data-equalizer  class="drop-shadow lifted">
+                <div class="small-6 large-centered columns columns">
+                    <p class="text-center" >&ensp; </p> 
+                </div>
+
+                <div class="small-6 large-centered columns columns">
+                    <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple="false"   fileread   />
+                </div>
+                <div class="small-6 large-centered columns columns">
+                    <p class="text-center" > </p> 
+                </div>
+                <div class="small-6 large-centered columns columns" >
+                    <p class="text-center" >Перетяните файл сюда</p>
+                     <p class="text-center" >&ensp; </p> 
+                        
+                </div>
+
+            </div>
+</div>
+
+
+            <div class="small-6 large-centered columns columns">
+                <p class="text-center" >&ensp;  </p> 
+                <ol ui-sortable ng-model="resultxml.root.list.item" class="list" >
+                    <li ng-repeat="entry in resultxml.root.list.item" class="item">{{ entry.name }} 
+
+                    </li>			
+                </ol>
+            </div>
+
+            <div class="small-6 large-centered columns columns">
+                <p class="text-center" >&ensp;  </p> 
+            </div>
+            <div class="small-6 large-centered columns columns">
+                <p class="text-center" > &ensp;  </p> 
+               
+
+            </div>  
+            <div class="small-6 large-centered columns columns" ng-show="button_show" text-center>
+                <a role="button" href="#" class="button" ng-click="next()">Продолжить</a>
+
+            </div>  
+        </div>
+
+    </div> 
+
+
+
+
+</form>

@@ -1,0 +1,163 @@
+﻿<form>
+    <div class="row">
+        <br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="bs-docs-grid">
+            <div class="row show-grid">
+                <div class="span3 offset4">
+                    <input type="text" placeholder="Path" ng-model = "udata.path" id="id_path">
+                </div>
+                <div class="span1">
+                    <div class="btn-group">
+                        <button class="btn btn-default" onclick="document.getElementById('upload').click()" >open</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="small-12 large-centered columns columns">
+
+
+
+            <div class="small-6 large-centered columns columns" >
+
+
+                <div ng-show="dropSupported"  ng-file-drop="onFileSelect($files)" ng-file-drop-available="dropSupported=true" ng-file-drag-over-class="dragOverClass($event)" ng-file-drag-over-delay="100" data-equalizer  class="drop-shadow lifted">
+                    <div class="small-6 large-centered columns columns">
+                        <p class="text-center" >&ensp; </p> 
+                    </div>
+
+
+
+                    <div class="small-6 large-centered columns columns">
+                        <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple="false"   fileread_excel></input>
+                    </div>
+                    <div class="small-6 large-centered columns columns">
+                        <p class="text-center" > </p> 
+                    </div>
+                    <div class="small-6 large-centered columns columns" >
+                        <p class="text-center text-info" >Перетащите файл сюда</p>
+                        <p class="text-center" >&ensp; </p> 
+                        <p class="text-center" >&ensp; </p> 
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        
+         
+          
+               
+                </div>     
+
+
+            </div>
+
+            <div class="small-6 large-centered columns columns">
+                <p class="text-center" >&ensp;  </p> 
+
+            </div>
+
+            <div class="small-6 large-centered columns columns"   >
+                <p class="text-center" >&ensp;</p> 
+                <div ng-bind-html="customLog" ></div>
+               
+            </div>
+
+            <div class="small-6 large-centered columns columns">
+                <p class="text-center" > &ensp;  </p> 
+
+
+            </div>  
+
+
+        </div>
+
+        <div  ng-show="bibView" class="text-center row">
+         
+            <div  class="text-center place span5">
+
+                <table ng-table="tableParams" class="table" show-filter="true"> 
+                    <tr ng-repeat="item in $data"   >
+                        <td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                            <input type="checkbox" ng-model="checkboxes.items[item.id]" />
+                        </td>
+                        <td data-title="'Bib'" filter="{ 'title': 'text' }">{{item.title}}     {{item.author}}</td>
+
+
+                    </tr>
+                </table>
+
+            </div>  
+
+            <div  class="text-center place span5 offset2">
+                <p class="text-center" >&ensp;  </p>
+                    <div ui-sortable= "sortableOptions2" ng-model="currList" class="list connected-apps-container2">
+                        <div ng-repeat="key in currList" class="item">{{key.title}}  {{key.author}}
+
+                        </div>			
+                    </div>
+
+            </div>     
+                  
+        </div>
+     <div  ng-show="bibView" class="text-center row">
+    
+             <div  class="text-center place span5">
+
+              <table ng-table="tableParams3" class="table" show-filter="true"> 
+                    <tr ng-repeat="item in $data"   >
+                        <td width="30" style="text-align: left" header="'ng-table/headers/checkbox.html'">
+                            <input type="checkbox" ng-model="checkboxes2.items[item.name]" />
+                        </td>
+                        <td data-title="'Csl'" filter="{ 'name': 'text' }">{{item.name}}</td>
+
+
+                    </tr>
+                </table>
+
+            </div>  
+
+            <div  class="text-center place span5 offset2">
+                <p class="text-center" >&ensp;  </p>
+                        <div  ui-sortable="sortableOptions1" ng-model="currListCsl" class="list connected-apps-container1" >
+
+                        <div ng-repeat="entry in currListCsl" class="item">{{ entry.name}} 
+
+                        </div>	
+
+            </div> 
+        
+         </div>  
+         
+         </div>
+        <br/>
+ 
+        <br/>
+        <br/>
+        <div class="row">
+         <div  class="place span6 offset3">
+
+        <span ng-bind-html="myContent"></span>
+        
+        </div>
+        </div>
+        <div class="btn-group text-center offset6">
+                        <button class="btn btn-default" ng-click="saveresult(myContent)">save</button>
+                    </div>
+   
+</form>
