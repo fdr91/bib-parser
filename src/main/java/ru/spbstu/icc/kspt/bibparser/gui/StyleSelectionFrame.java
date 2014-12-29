@@ -116,8 +116,22 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 				nextFrameButton.setEnabled(true);
 				style=readStyleFromString(styleFile);
 				chosenOutputFormat = listBoxOutputFormat.getSelectedItem().toString();
+				
+				// change content type to display the result correctly
+				switch(chosenOutputFormat) {
+				case "html": 
+					textPane.setContentType("text/html");
+					break;
+				case "text":
+					textPane.setContentType("text/plain");
+					break;
+				default:
+					textPane.setContentType("text/plain");
+					break;
+				}
+				
 				try {
-					styled=Styler.process(properties.getBib(), style, chosenOutputFormat, properties.getSelected());
+					styled = Styler.process(properties.getBib(), style, chosenOutputFormat, properties.getSelected());
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					styled = "Cant process the data";
