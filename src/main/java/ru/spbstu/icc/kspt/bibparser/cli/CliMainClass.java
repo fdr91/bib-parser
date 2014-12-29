@@ -579,7 +579,8 @@ public class CliMainClass {
 	void process() throws FileNotFoundException, IOException, ParseException {
 		logger.debug("HTML will be genrarated");
 		String style = readStyleToString(styleushka);
-		String res = Styler.process(bibushka, style, getSelectedKeys());
+		String outputFormat = "html";
+		String res = Styler.process(bibushka, style, outputFormat, getSelectedKeys());
 		logger.debug("HTML was generated");
 		try (FileOutputStream fos = new FileOutputStream(resultushka)) {
 			fos.write(res.getBytes());

@@ -17,7 +17,7 @@ import de.undercouch.citeproc.output.Bibliography;
 
 public class Styler {
 		
-	public static String process(File bib, String style, List<Key> tags) throws FileNotFoundException, IOException, ParseException{
+	public static String process(File bib, String style, String outputFormat, List<Key> tags) throws FileNotFoundException, IOException, ParseException{
 		/** 1 */
 		BibTeXDatabase db = new BibTeXConverter().loadDatabase(
 			    new FileInputStream(bib));
@@ -26,7 +26,7 @@ public class Styler {
 		provider.addDatabase(db);
 		
 		CSL citeproc = new CSL(provider, style);
-		citeproc.setOutputFormat("html");
+		citeproc.setOutputFormat(outputFormat);
 		
 		for(Key tag : tags)
 			citeproc.makeCitation(tag.toString());

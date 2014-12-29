@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -41,16 +42,18 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 	private Properties properties;
 	private JTextPane  textPane;
 	private String styled;
-	
+	private String[] listOutputFormat = {"html", "text", "rtf", "foo", "asciidoc"};
+	private String chosenOutputFormat = "html";
+	private JComboBox<String> listBoxOutputFormat;
 	
 	public StyleSelectionFrame(final JButton prev, final JButton next, ActionListener listener, Properties pr) {
 		super(prev, next);
 		logger.debug("StyleSelectionFrame constructor invocation");
-		bibSelectionPaneInitialisation(listener);
+		styleSelectionPaneInitialisation(listener);
 		properties = pr;
 	}
 	
-	private void bibSelectionPaneInitialisation(ActionListener listener){
+	private void styleSelectionPaneInitialisation(ActionListener listener){
 		styleSelectionPane = new JPanel();
 		styleSelectionPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(styleSelectionPane);
@@ -65,15 +68,13 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 		styleFileSelected.setColumns(10);
 
 		btnOpenAStylefile = new JButton("Open a style file");
-		btnOpenAStylefile.setIcon(new ImageIcon(StyleSelectionFrame.class
-				.getResource("/Open16.gif")));
+		btnOpenAStylefile.setIcon(new ImageIcon(StyleSelectionFrame.class.getResource("/Open16.gif")));
 		btnOpenAStylefile.setBounds(347, 10, 148, 23);
 		btnOpenAStylefile.addActionListener(this);
 		styleSelectionPane.add(btnOpenAStylefile);
 		
 		nextFrameButton.setText("Save to file");
-		btnOpenAStylefile.setIcon(new ImageIcon(StyleSelectionFrame.class
-				.getResource("/Save16.gif")));
+		btnOpenAStylefile.setIcon(new ImageIcon(StyleSelectionFrame.class.getResource("/Save16.gif")));
 		nextFrameButton.setBounds(406, 310, 89, 23);
 		nextFrameButton.addActionListener(this);
 		nextFrameButton.setEnabled(false);
@@ -89,7 +90,13 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 		textPane.setContentType("text/html");
 		styleSelectionPane.add(textPane);
 		
-		 fc = new JFileChooser();
+		fc = new JFileChooser();
+		
+		listBoxOutputFormat = new JComboBox<>(listOutputFormat);
+		listBoxOutputFormat.setBounds(320, 310, 90, 23);
+		listBoxOutputFormat.setSelectedIndex(0);
+		listBoxOutputFormat.addActionListener(listener);
+		styleSelectionPane.add(listBoxOutputFormat);	
 	}
 	
 	public File getStyleFile(){
@@ -108,8 +115,9 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 				//properties.setStyle(styleFile);
 				nextFrameButton.setEnabled(true);
 				style=readStyleFromString(styleFile);
+				chosenOutputFormat = listBoxOutputFormat.getSelectedItem().toString();
 				try {
-					styled=Styler.process(properties.getBib(), style, properties.getSelected());
+					styled=Styler.process(properties.getBib(), style, chosenOutputFormat, properties.getSelected());
 				} catch (IOException | ParseException e1) {
 					// TODO Auto-generated catch block
 					styled = "Cant process the data";
