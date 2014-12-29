@@ -42,7 +42,7 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 	private Properties properties;
 	private JTextPane  textPane;
 	private String styled;
-	private String[] listOutputFormat = {"html", "text", "rtf", "foo", "asciidoc"};
+	private String[] listOutputFormat = {"html", "text", "rtf", "fo", "asciidoc"};
 	private String chosenOutputFormat = "html";
 	private JComboBox<String> listBoxOutputFormat;
 	
@@ -124,6 +124,9 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 					break;
 				case "text":
 					textPane.setContentType("text/plain");
+					break;
+				case "rtf":
+					textPane.setContentType("text/rtf");
 					break;
 				default:
 					textPane.setContentType("text/plain");
