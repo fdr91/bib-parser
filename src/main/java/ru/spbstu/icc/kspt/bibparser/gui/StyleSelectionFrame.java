@@ -126,7 +126,7 @@ public class StyleSelectionFrame extends MultyWindowFrame implements ActionListe
 					textPane.setContentType("text/plain");
 					break;
 				case "rtf":
-					textPane.setContentType("text/rtf");
+					textPane.setContentType("text/plain");
 					break;
 				default:
 					textPane.setContentType("text/plain");
