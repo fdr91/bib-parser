@@ -21,12 +21,13 @@ public class BibTable/* extends JTable*/ {
 	Map<Key, BibTeXEntry> entries;
 	JTable table;
 	
-	public BibTable(final File bibFile) throws FileNotFoundException, IOException, ParseException{
+	public BibTable(final File bibFile) throws FileNotFoundException, IOException, ParseException {
 		table=fromBibToTable(bibFile);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 	}
 	
-	Map<Key, BibTeXEntry> extractRecordsFromBib(File bibFile) throws FileNotFoundException, IOException, ParseException{
+	Map<Key, BibTeXEntry> extractRecordsFromBib(File bibFile) throws FileNotFoundException, IOException, ParseException 
+	{
 		
     	Map<Key, BibTeXEntry> entries=null;
     	try (Reader reader = new FileReader(bibFile);) {
@@ -35,14 +36,15 @@ public class BibTable/* extends JTable*/ {
     		entries = database.getEntries();
     		reader.close();
 		}
+    	
 		return entries; 
 	}
 	
-	public JTable getTable(){
+	public JTable getTable() {
 		return table;
 	}
 		
-	private JTable fromBibToTable(File bib) throws FileNotFoundException, IOException, ParseException{
+	private JTable fromBibToTable(File bib) throws FileNotFoundException, IOException, ParseException {
 		
 		entries = extractRecordsFromBib(bib);
 		String[][] tableEntries=new String[entries.size()][Constants.FIRST_TABLE_COLUMN_COUNT];
@@ -70,7 +72,7 @@ public class BibTable/* extends JTable*/ {
 		return new JTable(tableEntries, columnNames);
 	}
 	
-	public static void insertRow(){
+	public static void insertRow() {
 		
 	}
 }

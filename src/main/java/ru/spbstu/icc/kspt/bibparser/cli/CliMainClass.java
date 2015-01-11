@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -82,8 +81,7 @@ public class CliMainClass {
 			.getLogger(CliMainClass.class);
 
 	void runInteractive() throws Exception {
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(System.in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		logger.debug("Run interactive mode");
 		Pattern pattern = Pattern.compile("\\d");
 		stage = Stage.ZERO;

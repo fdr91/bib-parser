@@ -8,10 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import ru.spbstu.icc.kspt.bibparser.gui.BibSelectionFrame;
 import ru.spbstu.icc.kspt.bibparser.gui.StyleSelectionFrame;
+import ru.spbstu.icc.kspt.bibparser.gui.GUI;
 import ru.spbstu.icc.kspt.bibparser.helpers.Properties;
 
 public class GreenTeamGuiStarter extends JFrame implements ActionListener {
-
 	/**
 	 * 
 	 */
@@ -25,8 +25,6 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 	StyleSelectionFrame styleSelectionFrame;
 	
 	private final Logger logger=LoggerFactory.getLogger(GreenTeamGuiStarter.class);
-
-	
 	
 	/**
 	 * Launch the application.
@@ -38,8 +36,8 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 					try {
 						
 						GreenTeamGuiStarter gui = new GreenTeamGuiStarter();
-						gui.styleSelectionFrame.setVisible(false);
-						gui.bibSelectionFrame.setVisible(true);
+//						gui.styleSelectionFrame.setVisible(false);
+//						gui.bibSelectionFrame.setVisible(true);
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -62,12 +60,14 @@ public class GreenTeamGuiStarter extends JFrame implements ActionListener {
 	public GreenTeamGuiStarter() {
 		properties = new Properties();
 		
-		bibNextBtn = new JButton();
-		bibSelectionFrame = new BibSelectionFrame(null, bibNextBtn, this, properties);
+		GUI gui = new GUI("Формирование списка литературы");
 		
-		styleNextBtn = new JButton();
-		stylePrevBtn = new JButton();
-		styleSelectionFrame = new StyleSelectionFrame(stylePrevBtn, styleNextBtn, this, properties);		
+//		bibNextBtn = new JButton();
+//		bibSelectionFrame = new BibSelectionFrame(null, bibNextBtn, this, properties);
+//		
+//		styleNextBtn = new JButton();
+//		stylePrevBtn = new JButton();
+//		styleSelectionFrame = new StyleSelectionFrame(stylePrevBtn, styleNextBtn, this, properties);		
 	}
 
 	public void actionPerformed(ActionEvent e) {
